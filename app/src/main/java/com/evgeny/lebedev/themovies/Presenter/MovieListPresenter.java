@@ -22,20 +22,16 @@ public class MovieListPresenter implements Contracts.Presenter.MoviesList {
         this.view = view;
         this.listType = listType;
         switch (listType) {
-            case 0:
-                break;
             case 1:
                 getPopularMovies();
                 break;
             case 2:
-                break;
-            case 3:
                 getTopRatedMovies();
                 break;
-            case 4:
+            case 3:
                 getFavoriteMovies();
                 break;
-            case 5:
+            case 4:
                 getWatchlist();
                 break;
 
@@ -168,6 +164,7 @@ public class MovieListPresenter implements Contracts.Presenter.MoviesList {
                             });
                     break;
                 case 2:
+                    Log.e("getToprated", "getToprated");
                     App.getApi().getTopRatedMovies(currentPage, App.apiKey)
                             .enqueue(new Callback<com.evgeny.lebedev.themovies.Model.MoviesList>() {
                                 @Override
