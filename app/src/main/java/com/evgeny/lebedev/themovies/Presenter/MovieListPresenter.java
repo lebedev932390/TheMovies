@@ -164,7 +164,6 @@ public class MovieListPresenter implements Contracts.Presenter.MoviesList {
                             });
                     break;
                 case 2:
-                    Log.e("getToprated", "getToprated");
                     App.getApi().getTopRatedMovies(currentPage, App.apiKey)
                             .enqueue(new Callback<com.evgeny.lebedev.themovies.Model.MoviesList>() {
                                 @Override
@@ -186,7 +185,7 @@ public class MovieListPresenter implements Contracts.Presenter.MoviesList {
                             });
                     break;
                 case 3:
-                    App.getApi().getFavoriteMovies(2, App.apiKey, App.sessionId, App.DESC)
+                    App.getApi().getFavoriteMovies(currentPage, App.apiKey, App.sessionId, App.DESC)
                             .enqueue(new Callback<com.evgeny.lebedev.themovies.Model.MoviesList>() {
                                 @Override
                                 public void onResponse(Call<com.evgeny.lebedev.themovies.Model.MoviesList> call, Response<com.evgeny.lebedev.themovies.Model.MoviesList> response) {
