@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.DashboardActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/dashboard_popular_movies_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Popular Movies"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+
+
+        <Button
+            android:id="@+id/dashboard_top_rated_movies_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Top Rated Movies"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+        <Button
+            android:id="@+id/dashboard_favorite_movies_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Favorite Movies"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+        <Button
+            android:id="@+id/dashboard_watchlist_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Watchlist"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+        <Button
+            android:id="@+id/dashboard_search_movie_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Search Movie"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+
+
+        <Button
+            android:id="@+id/dashboard_sign_out_button"
+            android:layout_width="match_parent"
+            android:textAllCaps="false"
+            android:text="Sign out"
+            android:layout_height="48dp"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+</RelativeLayout>
