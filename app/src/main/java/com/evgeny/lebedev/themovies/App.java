@@ -18,7 +18,8 @@ public class App extends Application {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd") ;
     private static API api;
     private Retrofit retrofit;
-    public static final String apiKey = "44b20ea2486ad0800f0ea2679227206e";
+    //apiKey скрыт
+    public static final String apiKey = null;
     public static final String DESC = "created_at.desc";
     public static final String ASC = "created_at.asc";
     public static String sessionId;
