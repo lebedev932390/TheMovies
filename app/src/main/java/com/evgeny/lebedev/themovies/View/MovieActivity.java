@@ -202,7 +202,7 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
     }
 
     @Override
-    public void showMovieRestData(String trailer) {
+    public void showMovieTrailer(String trailer) {
         textViewTrailer.setText(trailer);
 
     }
@@ -217,10 +217,10 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
     }
 
     @Override
-    public void showMovieCredits(final List<Cast> listOfCasts, final List<Crew> listOfCrew) {
+    public void showMovieCredits(final List<Cast> castList, final List<Crew> crewList) {
 
 
-        adapterCast = new CreditAdapter(listOfCasts,true);
+        adapterCast = new CreditAdapter(castList,true);
         recyclerViewCast = findViewById(R.id.movie_cast_recyclerview);
         recyclerViewCast.setHasFixedSize(true);
         layoutManagerCast = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -230,14 +230,14 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MovieActivity.this, PersonActivity.class);
-                intent.putExtra("id", listOfCasts.get(position).getId());
+                intent.putExtra("id", castList.get(position).getId());
                 startActivity(intent);
-                Toast.makeText(MovieActivity.this, Integer.toString(listOfCasts.get(position).getId()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovieActivity.this, Integer.toString(castList.get(position).getId()), Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        adapterCrew = new CreditAdapter(listOfCrew,false);
+        adapterCrew = new CreditAdapter(crewList,false);
         recyclerViewCrew = findViewById(R.id.movie_crew_recyclerview);
         recyclerViewCrew.setHasFixedSize(true);
         layoutManagerCrew = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -247,19 +247,19 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MovieActivity.this, PersonActivity.class);
-                intent.putExtra("id", listOfCrew.get(position).getId());
+                intent.putExtra("id", crewList.get(position).getId());
                 startActivity(intent);
 
-                Toast.makeText(MovieActivity.this, Integer.toString(listOfCrew.get(position).getId()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovieActivity.this, Integer.toString(crewList.get(position).getId()), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
-    public void showRecommendedMovies(final List<Movie> listOfMovies) {
-        Log.e("recommended", Integer.toString(listOfMovies.size()));
+    public void showRecommendedMovies(final List<Movie> moviesList) {
+        Log.e("recommended", Integer.toString(moviesList.size()));
 
-        adapterRecommended = new MovieAdapter(listOfMovies, this, false);
+        adapterRecommended = new MovieAdapter(moviesList,  false);
         recyclerViewRecommended = findViewById(R.id.movie_recommended_movies_recyclerview);
         recyclerViewRecommended.setHasFixedSize(true);
         layoutManagerRecommended = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -269,7 +269,7 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MovieActivity.this, MovieActivity.class);
-                intent.putExtra("id", listOfMovies.get(position).getId());
+                intent.putExtra("id", moviesList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -277,8 +277,8 @@ public class MovieActivity extends AppCompatActivity implements Contracts.View.C
     }
 
     @Override
-    public void showMovieImages(List<Image> listOfImages) {
-        adapterBackdrop = new ImageAdapter(listOfImages,false);
+    public void showMovieImages(List<Image> imagesList) {
+        adapterBackdrop = new ImageAdapter(imagesList,false);
         recyclerViewBackdrops = findViewById(R.id.movie_backdrops_recyclerview);
         recyclerViewBackdrops.setHasFixedSize(true);
         layoutManagerBackdrops = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

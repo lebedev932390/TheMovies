@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ListOfVideos {
+public class VideosList {
 
     @SerializedName("results")
     @Expose
-    private List<Video> listOfVideos = null;
+    private List<Video> VideosList = null;
 
-    public List<Video> getListOfVideos() {
-        return listOfVideos;
+    public List<Video> getVideosList() {
+        return VideosList;
     }
 }

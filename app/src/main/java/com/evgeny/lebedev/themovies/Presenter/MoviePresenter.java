@@ -1,20 +1,15 @@
 package com.evgeny.lebedev.themovies.Presenter;
 
-import android.util.Log;
-
 import com.evgeny.lebedev.themovies.App;
 import com.evgeny.lebedev.themovies.Contracts;
 import com.evgeny.lebedev.themovies.Model.BodyFavorite;
 import com.evgeny.lebedev.themovies.Model.BodyWatchlist;
-import com.evgeny.lebedev.themovies.Model.LisfOfImages;
-import com.evgeny.lebedev.themovies.Model.ListOfCredits;
-import com.evgeny.lebedev.themovies.Model.ListOfMovies;
-import com.evgeny.lebedev.themovies.Model.ListOfVideos;
-import com.evgeny.lebedev.themovies.Model.Movie;
+import com.evgeny.lebedev.themovies.Model.MovieImagesList;
+import com.evgeny.lebedev.themovies.Model.MovieCreditsList;
+import com.evgeny.lebedev.themovies.Model.MoviesList;
+import com.evgeny.lebedev.themovies.Model.VideosList;
 import com.evgeny.lebedev.themovies.Model.MovieAccountStates;
 import com.evgeny.lebedev.themovies.Model.MovieDetails;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,18 +43,18 @@ public class MoviePresenter implements Contracts.Presenter.ChosenMovie {
                 });
     }
 
-    private void getMovieImages(){
+    private void getMovieImages() {
         App.getApi().getMovieImages(movieId, App.apiKey)
-                .enqueue(new Callback<LisfOfImages>() {
+                .enqueue(new Callback<MovieImagesList>() {
                     @Override
-                    public void onResponse(Call<LisfOfImages> call, Response<LisfOfImages> response) {
-                        if (response.isSuccessful()){
-                            view.showMovieImages(response.body().getListOfBackdrops());
+                    public void onResponse(Call<MovieImagesList> call, Response<MovieImagesList> response) {
+                        if (response.isSuccessful()) {
+                            view.showMovieImages(response.body().getBackdropsList());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<LisfOfImages> call, Throwable t) {
+                    public void onFailure(Call<MovieImagesList> call, Throwable t) {
 
                     }
                 });
@@ -82,14 +77,14 @@ public class MoviePresenter implements Contracts.Presenter.ChosenMovie {
                 movieDetails.getRuntime(),
                 movieDetails.getReleaseDate());
         App.getApi().getMovieVideos(movieId, App.apiKey)
-                .enqueue(new Callback<ListOfVideos>() {
+                .enqueue(new Callback<VideosList>() {
                     @Override
-                    public void onResponse(Call<ListOfVideos> call, Response<ListOfVideos> response) {
+                    public void onResponse(Call<VideosList> call, Response<VideosList> response) {
                         if (response.isSuccessful()) {
-                            for (int i = 0; i < response.body().getListOfVideos().size(); i++) {
-                                if (response.body().getListOfVideos().get(i).isTrailer() && response.body().getListOfVideos().get(i).isYoutube()) {
-                                    trailer = response.body().getListOfVideos().get(i).getLink();
-                                    view.showMovieRestData(trailer);
+                            for (int i = 0; i < response.body().getVideosList().size(); i++) {
+                                if (response.body().getVideosList().get(i).isTrailer() && response.body().getVideosList().get(i).isYoutube()) {
+                                    trailer = response.body().getVideosList().get(i).getLink();
+                                    view.showMovieTrailer(trailer);
                                 }
                             }
 
@@ -97,7 +92,7 @@ public class MoviePresenter implements Contracts.Presenter.ChosenMovie {
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfVideos> call, Throwable t) {
+                    public void onFailure(Call<VideosList> call, Throwable t) {
 
                     }
                 });
@@ -109,22 +104,20 @@ public class MoviePresenter implements Contracts.Presenter.ChosenMovie {
         getMovieCredits();
 
 
-
-
     }
 
-    private void getMovieCredits(){
+    private void getMovieCredits() {
         App.getApi().getMovieCredits(movieId, App.apiKey)
-                .enqueue(new Callback<ListOfCredits>() {
+                .enqueue(new Callback<MovieCreditsList>() {
                     @Override
-                    public void onResponse(Call<ListOfCredits> call, Response<ListOfCredits> response) {
+                    public void onResponse(Call<MovieCreditsList> call, Response<MovieCreditsList> response) {
                         if (response.isSuccessful()) {
-                            view.showMovieCredits(response.body().getListOfCast(),response.body().getListOfCrew());
+                            view.showMovieCredits(response.body().getCastList(), response.body().getCrewList());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfCredits> call, Throwable t) {
+                    public void onFailure(Call<MovieCreditsList> call, Throwable t) {
 
                     }
                 });
@@ -147,22 +140,23 @@ public class MoviePresenter implements Contracts.Presenter.ChosenMovie {
                 });
     }
 
-    private void getRecommendedMovies(){
-        App.getApi().getRecommendedMovies(movieId,App.apiKey)
-                .enqueue(new Callback<ListOfMovies>() {
+    private void getRecommendedMovies() {
+        App.getApi().getRecommendedMovies(movieId, App.apiKey)
+                .enqueue(new Callback<MoviesList>() {
                     @Override
-                    public void onResponse(Call<ListOfMovies> call, Response<ListOfMovies> response) {
-                        if (response.isSuccessful()){
-                            view.showRecommendedMovies(response.body().getListOfMovies());
+                    public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
+                        if (response.isSuccessful()) {
+                            view.showRecommendedMovies(response.body().getMovieList());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfMovies> call, Throwable t) {
+                    public void onFailure(Call<MoviesList> call, Throwable t) {
 
                     }
                 });
     }
+
     @Override
     public void addToFavorites(boolean add) {
         App.getApi().markAsFavorite(new BodyFavorite("movie", movieId, add), App.apiKey, App.sessionId)

@@ -1,7 +1,6 @@
 package com.evgeny.lebedev.themovies;
 
 
-import android.content.SharedPreferences;
 
 import com.evgeny.lebedev.themovies.Model.Cast;
 import com.evgeny.lebedev.themovies.Model.Crew;
@@ -15,18 +14,22 @@ public interface Contracts {
     interface View {
         interface Authentication {
             void needAuthentication();
+
             void showError(String error);
+
             void missionComplete();
         }
 
 
-        interface ListOfMovies{
-            void showListOfMovies(List<Movie> listOfMovies, boolean noMore);
+        interface MoviesList {
+            void showListOfMovies(List<Movie> movieList, boolean noMore);
+
             void showMoreMovies(List<Movie> moreMovies, boolean noMore);
         }
 
-        interface SearchMovie{
-            void showListOfMovies(List<Movie> listOfMovies, boolean noMore);
+        interface SearchMovie {
+            void showListOfMovies(List<Movie> movieList, boolean noMore);
+
             void showMoreMovies(List<Movie> moreMovies, boolean noMore);
 
         }
@@ -42,18 +45,25 @@ public interface Contracts {
                                String revenue,
                                String runtime,
                                String releaseDate);
-            void showMovieRestData(String trailer);
+
+            void showMovieTrailer(String trailer);
+
             void showMovieAccountStates(boolean favorite, boolean watchlist);
-            void showMovieCredits(List<Cast> listOfCasts, List<Crew> listOfCrew);
-            void showRecommendedMovies(List<Movie> listOfMovies);
-            void showMovieImages(List<Image> listOfImages);
+
+            void showMovieCredits(List<Cast> castList, List<Crew> crewList);
+
+            void showRecommendedMovies(List<Movie> moviesList);
+
+            void showMovieImages(List<Image> imagesList);
 
 
         }
 
         interface Person {
-            void showDetails(String profilePath, String name, String department,String biography, String placeOfBirth, String birthday, String deathday);
+            void showDetails(String profilePath, String name, String department, String biography, String placeOfBirth, String birthday, String deathday);
+
             void showCredits(List<Movie> castList, List<Movie> crewList);
+
             void showImages(List<Image> imageList);
         }
 
@@ -65,21 +75,26 @@ public interface Contracts {
             void buttonSignInClicked(String username, String password, boolean rememberMe);
         }
 
-        interface ListOfMovies{
+        interface MoviesList {
             void loadMore();
 
         }
-        interface SearchMovie{
+
+        interface SearchMovie {
             void searchMovie(String query);
+
             void loadMore();
 
         }
+
         interface ChosenMovie {
             void addToFavorites(boolean add);
+
             void addToWatchList(boolean add);
         }
 
         interface Person {
+
         }
     }
 }

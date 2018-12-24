@@ -26,7 +26,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".View.MovieActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".View.ListOfMoviesActivity"
+        <activity android:name=".View.MovieListActivityList"
             android:screenOrientation="portrait"/>
         <activity android:name=".View.SearchMovieActivity"
             android:screenOrientation="portrait"/>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -12,7 +11,7 @@ import com.evgeny.lebedev.themovies.R;
 
 public class DashboardActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonTrendingMovies, buttonPopularMovies, buttonUpcomingMovies, buttonTopRatedMovies, buttonFavoriteMovies, buttonWatchlist, buttonSearchMovie, buttonSignOut;
+    private Button buttonPopularMovies, buttonTopRatedMovies, buttonFavoriteMovies, buttonWatchlist, buttonSearchMovie, buttonSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +44,20 @@ public class DashboardActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this,ListOfMoviesActivity.class);
+        Intent intent = new Intent(this,MovieListActivityList.class);
 
         switch (v.getId()) {
             case R.id.dashboard_popular_movies_button:
                 intent.putExtra("listType", 1);
                 break;
             case R.id.dashboard_top_rated_movies_button:
-                intent.putExtra("listType", 3);
+                intent.putExtra("listType", 2);
                 break;
             case R.id.dashboard_favorite_movies_button:
-                intent.putExtra("listType", 4);
+                intent.putExtra("listType", 3);
                 break;
             case R.id.dashboard_watchlist_button:
-                intent.putExtra("listType", 5);
+                intent.putExtra("listType", 4);
                 break;
             case R.id.dashboard_search_movie_button:
                 intent = new Intent(this,SearchMovieActivity.class);

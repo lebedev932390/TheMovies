@@ -5,12 +5,12 @@ import android.graphics.Movie;
 
 import com.evgeny.lebedev.themovies.Model.BodyFavorite;
 import com.evgeny.lebedev.themovies.Model.BodyWatchlist;
-import com.evgeny.lebedev.themovies.Model.LisfOfImages;
-import com.evgeny.lebedev.themovies.Model.ListOfCredits;
-import com.evgeny.lebedev.themovies.Model.ListOfMovies;
-import com.evgeny.lebedev.themovies.Model.ListOfPersonImages;
-import com.evgeny.lebedev.themovies.Model.ListOfPersonMovieCredits;
-import com.evgeny.lebedev.themovies.Model.ListOfVideos;
+import com.evgeny.lebedev.themovies.Model.MovieImagesList;
+import com.evgeny.lebedev.themovies.Model.MovieCreditsList;
+import com.evgeny.lebedev.themovies.Model.MoviesList;
+import com.evgeny.lebedev.themovies.Model.PersonImagesList;
+import com.evgeny.lebedev.themovies.Model.PersonMovieCreditsList;
+import com.evgeny.lebedev.themovies.Model.VideosList;
 import com.evgeny.lebedev.themovies.Model.MovieAccountStates;
 import com.evgeny.lebedev.themovies.Model.MovieDetails;
 import com.evgeny.lebedev.themovies.Model.Person;
@@ -35,39 +35,39 @@ public interface API {
     Call<Person> getPersonDetails(@Path("person_id") int personId, @Query("api_key") String apiKey);
 
     @GET("person/{person_id}/movie_credits")
-    Call<ListOfPersonMovieCredits> getPersonMovieCredits(@Path("person_id") int personId, @Query("api_key") String apiKey);
+    Call<PersonMovieCreditsList> getPersonMovieCredits(@Path("person_id") int personId, @Query("api_key") String apiKey);
 
     @GET("person/{person_id}/images")
-    Call<ListOfPersonImages> getPersonImages(@Path("person_id") int personId, @Query("api_key") String apiKey);
+    Call<PersonImagesList> getPersonImages(@Path("person_id") int personId, @Query("api_key") String apiKey);
 
     //movie
-    @GET("movie/{movie_id}")
-    Call<Movie> getMovie(@Path("movie_id") int movie_id, @Query("api_key") String apiKey);
+    //@GET("movie/{movie_id}")
+    //Call<Movie> getMovie(@Path("movie_id") int movie_id, @Query("api_key") String apiKey);
 
     @GET("movie/{movie_id}")
     Call<MovieDetails> getMovieDetails(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
     @GET("movie/{movie_id}/videos")
-    Call<ListOfVideos> getMovieVideos(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
+    Call<VideosList> getMovieVideos(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
     @GET("movie/{movie_id}/account_states")
     Call<MovieAccountStates> getMovieAccountStates(@Path("movie_id") int movieId, @Query("api_key") String apiKey, @Query("session_id") String sessionId);
 
     @GET("account/{account_id}/favorite/movies")
-    Call<ListOfMovies> getFavoriteMovies(@Query("page") int page, @Query("api_key") String apiKey, @Query("session_id") String sessionId, @Query("sort_by") String sortBy);
+    Call<MoviesList> getFavoriteMovies(@Query("page") int page, @Query("api_key") String apiKey, @Query("session_id") String sessionId, @Query("sort_by") String sortBy);
 
     @GET("account/{account_id}/watchlist/movies")
-    Call<ListOfMovies> getWatchlist(@Query("page") int page, @Query("api_key") String apiKey, @Query("session_id") String sessionId, @Query("sort_by") String sortBy);
+    Call<MoviesList> getWatchlist(@Query("page") int page, @Query("api_key") String apiKey, @Query("session_id") String sessionId, @Query("sort_by") String sortBy);
 
     @GET("movie/{movie_id}/credits")
-    Call<ListOfCredits> getMovieCredits(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
+    Call<MovieCreditsList> getMovieCredits(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
     @GET("search/movie")
-    Call<ListOfMovies> getSearchMovie(@Query("api_key") String apiKey, @Query("query") String query, @Query("page") int page);
+    Call<MoviesList> getSearchMovie(@Query("api_key") String apiKey, @Query("query") String query, @Query("page") int page);
 
 
     @GET("movie/{movie_id}/images")
-    Call<LisfOfImages> getMovieImages(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
+    Call<MovieImagesList> getMovieImages(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
 
     @GET("authentication/token/new")
@@ -83,22 +83,21 @@ public interface API {
 
 
     @GET("movie/{movie_id}/recommendations")
-    Call<ListOfMovies> getRecommendedMovies(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
+    Call<MoviesList> getRecommendedMovies(@Path("movie_id") int movieId, @Query("api_key") String apiKey);
 
 
     @GET("movie/popular")
-    Call<ListOfMovies> getPopularMovies(@Query("page") int page, @Query("api_key") String apiKey);
+    Call<MoviesList> getPopularMovies(@Query("page") int page, @Query("api_key") String apiKey);
 
 
     @GET("movie/top_rated")
-    Call<ListOfMovies> getTopRatedMovies(@Query("page") int page, @Query("api_key") String apiKey);
+    Call<MoviesList> getTopRatedMovies(@Query("page") int page, @Query("api_key") String apiKey);
 
     @FormUrlEncoded
     @POST("authentication/session/new")
     Call<Session> createSession(@Field("request_token") String requestToken,
                                 @Query("api_key") String apiKey);
 
-    //@Headers("application/json;charset=utf-8")
     @POST("account/{account_id}/favorite")
     Call<Response> markAsFavorite(@Body BodyFavorite bodyFavorite,
                                   @Query("api_key") String apiKey,

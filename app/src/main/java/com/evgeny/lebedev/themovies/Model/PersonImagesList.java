@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ListOfPersonImages {
+public class PersonImagesList {
 
     @SerializedName("profiles")
-    List<Image> imageList;
+    private List<Image> imageList;
 
     public List<Image> getImageList() {
         return imageList;

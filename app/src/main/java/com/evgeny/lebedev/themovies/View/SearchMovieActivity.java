@@ -39,7 +39,6 @@ public class SearchMovieActivity extends AppCompatActivity implements Contracts.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_movie);
 
-        Log.e("onCreate searchActivity", "searchActivity");
         context = this;
         progressBar = findViewById(R.id.search_movie_progres_bar);
         presenter = new SearchMoviePresenter(this);
@@ -65,26 +64,26 @@ public class SearchMovieActivity extends AppCompatActivity implements Contracts.
     }
 
     @Override
-    public void showListOfMovies(final List<Movie> listOfMovies, boolean noMore) {
+    public void showListOfMovies(final List<Movie> movieList, boolean noMore) {
         recyclerView = findViewById(R.id.search_movie_list_recyclerview);
 
-        if (noMore){
+        if (noMore) {
             progressBar.setVisibility(View.GONE);
             progressBarIsVisible = false;
-            recyclerView.setPadding(0,0,0,0);
+            recyclerView.setPadding(0, 0, 0, 0);
 
         }
-        list = listOfMovies;
-        adapter = new MovieAdapter(list,this, true);
+        list = movieList;
+        adapter = new MovieAdapter(list, true);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new GridLayoutManager(this,2);
+        layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) { // only when scrolling up
+                if (dy > 0) {
 
                     final int visibleThreshold = 2;
 
@@ -93,10 +92,8 @@ public class SearchMovieActivity extends AppCompatActivity implements Contracts.
                     int currentTotalCount = layoutManager.getItemCount();
 
                     if (currentTotalCount <= lastItem + visibleThreshold) {
-                        //show your loading view
-                        // load content in background
 
-                        if (progressBarIsVisible){
+                        if (progressBarIsVisible) {
                             progressBar.setVisibility(View.VISIBLE);
                             presenter.loadMore();
 
@@ -110,7 +107,7 @@ public class SearchMovieActivity extends AppCompatActivity implements Contracts.
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, MovieActivity.class);
-                intent.putExtra("id", listOfMovies.get(position).getId());
+                intent.putExtra("id", movieList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -118,10 +115,10 @@ public class SearchMovieActivity extends AppCompatActivity implements Contracts.
 
     @Override
     public void showMoreMovies(List<Movie> moreMovies, boolean noMore) {
-        if (noMore){
+        if (noMore) {
             progressBarIsVisible = false;
             progressBar.setVisibility(View.GONE);
-            recyclerView.setPadding(0,0,0,0);
+            recyclerView.setPadding(0, 0, 0, 0);
         }
         list.addAll(moreMovies);
         adapter.notifyDataSetChanged();

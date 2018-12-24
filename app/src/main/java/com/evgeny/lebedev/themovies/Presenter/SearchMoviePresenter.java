@@ -4,10 +4,7 @@ import android.util.Log;
 
 import com.evgeny.lebedev.themovies.App;
 import com.evgeny.lebedev.themovies.Contracts;
-import com.evgeny.lebedev.themovies.Model.ListOfMovies;
-import com.evgeny.lebedev.themovies.Model.Movie;
-
-import java.util.List;
+import com.evgeny.lebedev.themovies.Model.MoviesList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,22 +25,22 @@ public class SearchMoviePresenter implements Contracts.Presenter.SearchMovie {
     public void searchMovie(String query) {
         searchQuery = query;
         App.getApi().getSearchMovie(App.apiKey,query, currentPage)
-                .enqueue(new Callback<ListOfMovies>() {
+                .enqueue(new Callback<MoviesList>() {
                     @Override
-                    public void onResponse(Call<ListOfMovies> call, Response<ListOfMovies> response) {
+                    public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
                         if (response.isSuccessful()) {
                             totalPages = response.body().getTotalPages();
                             if (currentPage == totalPages) {
-                                view.showListOfMovies(response.body().getListOfMovies(), true);
+                                view.showListOfMovies(response.body().getMovieList(), true);
 
                             } else if (currentPage < totalPages) {
-                                view.showListOfMovies(response.body().getListOfMovies(), false);
+                                view.showListOfMovies(response.body().getMovieList(), false);
                             }
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfMovies> call, Throwable t) {
+                    public void onFailure(Call<MoviesList> call, Throwable t) {
 
                     }
                 });
@@ -56,21 +53,21 @@ public class SearchMoviePresenter implements Contracts.Presenter.SearchMovie {
         if (currentPage<totalPages){
             currentPage++;
             App.getApi().getSearchMovie(App.apiKey,searchQuery, currentPage)
-                    .enqueue(new Callback<ListOfMovies>() {
+                    .enqueue(new Callback<MoviesList>() {
                         @Override
-                        public void onResponse(Call<ListOfMovies> call, Response<ListOfMovies> response) {
+                        public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
                             if (response.isSuccessful()){
                                 if (currentPage == totalPages) {
-                                    view.showMoreMovies(response.body().getListOfMovies(), true);
+                                    view.showMoreMovies(response.body().getMovieList(), true);
 
                                 } else if (currentPage < totalPages) {
-                                    view.showMoreMovies(response.body().getListOfMovies(), false);
+                                    view.showMoreMovies(response.body().getMovieList(), false);
                                 }
                             }
                         }
 
                         @Override
-                        public void onFailure(Call<ListOfMovies> call, Throwable t) {
+                        public void onFailure(Call<MoviesList> call, Throwable t) {
 
                         }
                     });

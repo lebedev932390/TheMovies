@@ -1,6 +1,5 @@
 package com.evgeny.lebedev.themovies.View.Adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,12 +17,10 @@ import java.util.List;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolderMovie> {
 
     private boolean isVertical;
-    private Context context;
     private List<Movie> listOfMovies;
 
-    public MovieAdapter(List<Movie> listOfMovies, Context context, boolean isVertical) {
+    public MovieAdapter(List<Movie> listOfMovies, boolean isVertical) {
         this.listOfMovies = listOfMovies;
-        this.context = context;
         this.isVertical = isVertical;
     }
 

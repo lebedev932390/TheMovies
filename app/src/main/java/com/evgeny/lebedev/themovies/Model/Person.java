@@ -31,7 +31,7 @@ public class Person {
     }
 
     public String getDeathday() {
-        if (deathday==null){
+        if (deathday == null) {
             return "";
         }
         return App.formatDate(deathday);

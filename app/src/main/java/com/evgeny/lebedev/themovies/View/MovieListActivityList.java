@@ -12,15 +12,15 @@ import android.widget.ProgressBar;
 
 import com.evgeny.lebedev.themovies.Contracts;
 import com.evgeny.lebedev.themovies.Model.Movie;
-import com.evgeny.lebedev.themovies.Presenter.ListOfMoviesPresenter;
+import com.evgeny.lebedev.themovies.Presenter.MovieListPresenter;
 import com.evgeny.lebedev.themovies.R;
 import com.evgeny.lebedev.themovies.View.Adapter.MovieAdapter;
 
 import java.util.List;
 
-public class ListOfMoviesActivity extends AppCompatActivity implements Contracts.View.ListOfMovies {
+public class MovieListActivityList extends AppCompatActivity implements Contracts.View.MoviesList {
 
-    private Contracts.Presenter.ListOfMovies presenter;
+    private Contracts.Presenter.MoviesList presenter;
     private RecyclerView recyclerView;
     private MovieAdapter adapter;
     private GridLayoutManager layoutManager;
@@ -32,51 +32,35 @@ public class ListOfMoviesActivity extends AppCompatActivity implements Contracts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_of_movies);
+        setContentView(R.layout.activity_movie_list);
 
         progressBar = findViewById(R.id.list_of_movies_progres_bar);
 
         context = this;
-        presenter = new ListOfMoviesPresenter(this, getIntent().getIntExtra("listType", 0));
+        presenter = new MovieListPresenter(this, getIntent().getIntExtra("listType", 0));
     }
 
     @Override
-    public void showListOfMovies(final List<Movie> listOfMovies, boolean noMore) {
+    public void showListOfMovies(final List<Movie> movieList, boolean noMore) {
         recyclerView = findViewById(R.id.list_of_movies_recyclerview);
 
-        if (noMore){
+        if (noMore) {
             progressBar.setVisibility(View.GONE);
             progressBarIsVisible = false;
-            recyclerView.setPadding(0,0,0,0);
+            recyclerView.setPadding(0, 0, 0, 0);
 
         }
-        list = listOfMovies;
-        adapter = new MovieAdapter(list, this, true);
+        list = movieList;
+        adapter = new MovieAdapter(list, true);
         recyclerView.setHasFixedSize(true);
         layoutManager = new GridLayoutManager(this, 2);
-        //layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-        //    @Override
-        //    public int getSpanSize(int position) {
-//
-        //        if (list.get(position).getType() == TYPE_CONTENT) {
-        //            // will consume only one part of the SPAN_COUNT
-        //            return 1;
-        //        } else if(list.get(position).getType() == TYPE_FOOTER) {
-        //            // Will consume the whole width
-        //            // Will take care of spaces to be left,
-        //            // if the number of views in a row is not equal to 4
-        //            return layoutManager.getSpanCount();
-        //        }
-        //        return layoutManager.getSpanCount();
-        //    }
-        //});
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0) { // only when scrolling up
+                if (dy > 0) {
 
                     final int visibleThreshold = 2;
 
@@ -85,10 +69,7 @@ public class ListOfMoviesActivity extends AppCompatActivity implements Contracts
                     int currentTotalCount = layoutManager.getItemCount();
 
                     if (currentTotalCount <= lastItem + visibleThreshold) {
-                        //show your loading view
-                        // load content in background
-
-                        if (progressBarIsVisible){
+                        if (progressBarIsVisible) {
                             progressBar.setVisibility(View.VISIBLE);
                             presenter.loadMore();
 
@@ -103,7 +84,7 @@ public class ListOfMoviesActivity extends AppCompatActivity implements Contracts
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(context, MovieActivity.class);
-                intent.putExtra("id",listOfMovies.get(position).getId());
+                intent.putExtra("id", movieList.get(position).getId());
                 startActivity(intent);
             }
         });
@@ -114,10 +95,10 @@ public class ListOfMoviesActivity extends AppCompatActivity implements Contracts
     @Override
     public void showMoreMovies(List<Movie> moreMovies, boolean noMore) {
 
-        if (noMore){
+        if (noMore) {
             progressBar.setVisibility(View.GONE);
             progressBarIsVisible = false;
-            recyclerView.setPadding(0,0,0,0);
+            recyclerView.setPadding(0, 0, 0, 0);
 
         }
         list.addAll(moreMovies);

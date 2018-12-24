@@ -71,10 +71,8 @@ public class PersonActivity extends AppCompatActivity implements Contracts.View.
 
     @Override
     public void showCredits(final List<Movie> castList, final List<Movie> crewList) {
-        Log.e("cast", Integer.toString(castList.size()));
-        Log.e("crew", Integer.toString(crewList.size()));
 
-        adapterCast = new MovieAdapter(castList, this, false);
+        adapterCast = new MovieAdapter(castList, false);
         recyclerViewCast = findViewById(R.id.person_cast_recyclerview);
         recyclerViewCast.setHasFixedSize(true);
         layoutManagerCast = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -90,7 +88,7 @@ public class PersonActivity extends AppCompatActivity implements Contracts.View.
         });
 
 
-        adapterCrew = new MovieAdapter(crewList, this, false);
+        adapterCrew = new MovieAdapter(crewList, false);
         recyclerViewCrew = findViewById(R.id.person_crew_recyclerview);
         recyclerViewCrew.setHasFixedSize(true);
         layoutManagerCrew = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -108,7 +106,7 @@ public class PersonActivity extends AppCompatActivity implements Contracts.View.
 
     @Override
     public void showImages(List<Image> imageList) {
-        adapterProfiles = new ImageAdapter(imageList,true);
+        adapterProfiles = new ImageAdapter(imageList, true);
         recyclerViewProfiles = findViewById(R.id.person_images_recyclerview);
         recyclerViewProfiles.setHasFixedSize(true);
         layoutManagerProfiles = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);

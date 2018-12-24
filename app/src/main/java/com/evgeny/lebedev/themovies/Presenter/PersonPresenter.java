@@ -2,8 +2,8 @@ package com.evgeny.lebedev.themovies.Presenter;
 
 import com.evgeny.lebedev.themovies.App;
 import com.evgeny.lebedev.themovies.Contracts;
-import com.evgeny.lebedev.themovies.Model.ListOfPersonImages;
-import com.evgeny.lebedev.themovies.Model.ListOfPersonMovieCredits;
+import com.evgeny.lebedev.themovies.Model.PersonImagesList;
+import com.evgeny.lebedev.themovies.Model.PersonMovieCreditsList;
 import com.evgeny.lebedev.themovies.Model.Person;
 
 import retrofit2.Call;
@@ -27,16 +27,16 @@ public class PersonPresenter implements Contracts.Presenter.Person {
 
     private void getPersonImages(){
         App.getApi().getPersonImages(personId,App.apiKey)
-                .enqueue(new Callback<ListOfPersonImages>() {
+                .enqueue(new Callback<PersonImagesList>() {
                     @Override
-                    public void onResponse(Call<ListOfPersonImages> call, Response<ListOfPersonImages> response) {
+                    public void onResponse(Call<PersonImagesList> call, Response<PersonImagesList> response) {
                         if (response.isSuccessful()){
                             view.showImages(response.body().getImageList());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfPersonImages> call, Throwable t) {
+                    public void onFailure(Call<PersonImagesList> call, Throwable t) {
 
                     }
                 });
@@ -44,17 +44,17 @@ public class PersonPresenter implements Contracts.Presenter.Person {
 
     private void getPersonCredits(){
         App.getApi().getPersonMovieCredits(personId,App.apiKey)
-                .enqueue(new Callback<ListOfPersonMovieCredits>() {
+                .enqueue(new Callback<PersonMovieCreditsList>() {
                     @Override
-                    public void onResponse(Call<ListOfPersonMovieCredits> call, Response<ListOfPersonMovieCredits> response) {
+                    public void onResponse(Call<PersonMovieCreditsList> call, Response<PersonMovieCreditsList> response) {
                         if (response.isSuccessful()){
-                            view.showCredits(response.body().getListOfCast(),
-                                    response.body().getListOfCrew());
+                            view.showCredits(response.body().getCastList(),
+                                    response.body().getCrewList());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ListOfPersonMovieCredits> call, Throwable t) {
+                    public void onFailure(Call<PersonMovieCreditsList> call, Throwable t) {
 
                     }
                 });
